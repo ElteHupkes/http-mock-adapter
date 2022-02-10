@@ -16,14 +16,9 @@ mixin Recording {
 
   /// Getter for the current request invocation's intended [mockResponse].
   MockResponseBodyCallback get mockResponse => (requestOptions) {
-        _invocationIndex = null;
-
-        for (var requestMatcher in _requestMatchers) {
-          if (requestOptions.signature == requestMatcher.request.signature ||
-              requestOptions.matchesRequest(requestMatcher.request)) {
-            _invocationIndex = _requestMatchers.indexOf(requestMatcher);
-          }
-        }
+        _invocationIndex = _requestMatchers.lastIndexWhere((requestMatcher) =>
+            requestMatcher.matcher
+                .matches(requestOptions, requestMatcher.request.signature));
 
         // Fail when a mocked route is not found for the request.
         if (_invocationIndex == null || _invocationIndex! < 0) {

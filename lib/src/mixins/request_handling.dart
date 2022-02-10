@@ -45,6 +45,7 @@ mixin RequestHandling on Recording {
     Pattern route,
     MockServerCallback requestHandlerCallback, {
     required Request request,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) {
     var requestData = request.data;
 
@@ -53,14 +54,17 @@ mixin RequestHandling on Recording {
       requestData = Matchers.formData(requestData);
     }
 
-    final matcher = RequestMatcher(Request(
-      route: route,
-      method:
-          request.method ?? RequestMethods.forName(name: dio.options.method),
-      data: requestData,
-      queryParameters: request.queryParameters ?? dio.options.queryParameters,
-      headers: {...?request.headers},
-    ));
+    final matcher = RequestMatcher(
+      Request(
+        route: route,
+        method:
+            request.method ?? RequestMethods.forName(name: dio.options.method),
+        data: requestData,
+        queryParameters: request.queryParameters ?? dio.options.queryParameters,
+        headers: {...?request.headers},
+      ),
+      requestMatcher,
+    );
 
     requestHandlerCallback(matcher);
     history.add(matcher);
@@ -74,6 +78,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -85,6 +90,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   /// Takes in a route, requests with [RequestMethods.head],
@@ -95,6 +101,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -106,6 +113,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   /// Takes in a route, requests with [RequestMethods.post],
@@ -116,6 +124,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -127,6 +136,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   /// Takes in a route, requests with [RequestMethods.put],
@@ -137,6 +147,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -148,6 +159,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   /// Takes in a route, requests with [RequestMethods.delete],
@@ -158,6 +170,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -169,6 +182,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   /// Takes in a route, requests with [RequestMethods.patch],
@@ -179,6 +193,7 @@ mixin RequestHandling on Recording {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
+    HttpRequestMatcher requestMatcher = const FullHttpRequestMatcher(),
   }) =>
       onRoute(
         route,
@@ -190,6 +205,7 @@ mixin RequestHandling on Recording {
           queryParameters: queryParameters,
           headers: headers,
         ),
+        requestMatcher: requestMatcher,
       );
 
   bool isMockDioError(MockResponse mockResponse) =>

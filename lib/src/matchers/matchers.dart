@@ -13,6 +13,7 @@ import 'package:http_mock_adapter/src/matchers/number.dart';
 import 'package:http_mock_adapter/src/matchers/regexp.dart';
 import 'package:http_mock_adapter/src/matchers/string.dart';
 
+export 'package:http_mock_adapter/src/matchers/request_matcher.dart';
 export 'package:http_mock_adapter/src/matchers/matcher.dart';
 export 'package:http_mock_adapter/src/matchers/matchers.dart' show Matchers;
 

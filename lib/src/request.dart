@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:http_mock_adapter/src/handlers/request_handler.dart';
 import 'package:http_mock_adapter/src/response.dart';
 import 'package:http_mock_adapter/src/utils.dart';
@@ -42,8 +43,9 @@ class Request {
 class RequestMatcher extends RequestHandler {
   /// This is a request sent by the the client.
   final Request request;
+  final HttpRequestMatcher matcher;
 
-  RequestMatcher(this.request);
+  RequestMatcher(this.request, [this.matcher = const FullHttpRequestMatcher()]);
 }
 
 /// HTTP methods.
