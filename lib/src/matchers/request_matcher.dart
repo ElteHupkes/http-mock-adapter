@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/src/extensions/extensions.dart';
+import 'package:http_mock_adapter/src/request.dart';
 
 import '../../http_mock_adapter.dart';
 
